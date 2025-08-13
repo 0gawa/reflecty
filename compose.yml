@@ -1,0 +1,66 @@
+services:
+  # front:
+  #   build:
+  #     context: ./front
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     TZ: Asia/Tokyo
+  #   networks:
+  #     - fixed_compose_network
+  #   volumes:
+  #     - ./front:/app
+  #     - front_node_modules:/app/node_modules
+  #   command: pnpm dev -p 3000
+  #   ports:
+  #     - "3000:3000"
+  back:
+    build:
+      context: ./reflecty-api
+      dockerfile: Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+      DATABASE_HOST: db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: password
+    # networks:
+    #   - fixed_compose_network
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0' -p 3001"
+    volumes:
+      - ./reflecty-api:/app
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    tty: true
+    stdin_open: true
+  db:
+    image: postgres:16.2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: reflecty_api_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # networks:
+    #   - fixed_compose_network
+  test-db:
+    image: postgres:16.2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: reflecty_api_test
+    ports:
+      - "5433:5432"
+    # networks:
+    #   - fixed_compose_network
+volumes:
+  # front_node_modules:
+  postgres_data:
+# networks:
+#   fixed_compose_network:
+#     driver: bridge
+#     ipam:
+#       config:
+#         - subnet: 172.20.0.0/16

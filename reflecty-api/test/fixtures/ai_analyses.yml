@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entry: one
+  analysis_type: MyString
+  result: 
+  status: MyString
+
+two:
+  entry: two
+  analysis_type: MyString
+  result: 
+  status: MyString

@@ -1,0 +1,31 @@
+### Rails App (reflecty-api) ###
+# Ignore bundler config.
+/reflecty-api/.bundle
+
+# Ignore all environment files.
+/reflecty-api/.env*
+
+# Ignore all logfiles and tempfiles.
+/reflecty-api/log/*
+/reflecty-api/tmp/*
+!/reflecty-api/log/.keep
+!/reflecty-api/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/reflecty-api/tmp/pids/*
+!/reflecty-api/tmp/pids/
+!/reflecty-api/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/reflecty-api/storage/*
+!/reflecty-api/storage/.keep
+/reflecty-api/tmp/storage/*
+!/reflecty-api/tmp/storage/
+!/reflecty-api/tmp/storage/.keep
+
+# Ignore master key for decrypting credentials and more.
+
+/reflecty-api/config/master.key
+### Docker ###
+# Ignore docker-compose data volumes if they are bind-mounted
+/postgres_data/

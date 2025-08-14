@@ -59,3 +59,5 @@ gem 'stripe'
 
 # フロントエンドからのAPIリクエストを許可するため
 gem 'rack-cors'
+
+gem 'jsonapi-serializer'

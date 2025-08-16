@@ -1,18 +1,17 @@
 services:
-  # front:
-  #   build:
-  #     context: ./front
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     TZ: Asia/Tokyo
-  #   networks:
-  #     - fixed_compose_network
-  #   volumes:
-  #     - ./front:/app
-  #     - front_node_modules:/app/node_modules
-  #   command: pnpm dev -p 3000
-  #   ports:
-  #     - "3000:3000"
+  front:
+    build:
+      context: ./reflecty-front
+      dockerfile: Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+    # networks:
+    #   - fixed_compose_network
+    volumes:
+      - ./reflecty-front:/app
+    command: pnpm dev -p 3000
+    ports:
+      - "3000:3000"
   back:
     build:
       context: ./reflecty-api

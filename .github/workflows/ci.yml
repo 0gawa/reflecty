@@ -36,7 +36,7 @@ jobs:
     steps:
       # 1. リポジトリのコードをチェックアウト
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Ruby and install dependencies
         uses: ruby/setup-ruby@v1

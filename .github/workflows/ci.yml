@@ -46,7 +46,7 @@ jobs:
           DATABASE_USERNAME: postgres
           DATABASE_PASSWORD: password
         run: |
-          cd back
+          cd reflecty-api
           bundle exec rails db:create
           bundle exec rails db:migrate
 
@@ -58,5 +58,5 @@ jobs:
           DATABASE_USERNAME: postgres
           DATABASE_PASSWORD: password
         run: |
-          cd back
+          cd reflecty-api
           bundle exec rspec

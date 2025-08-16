@@ -1,6 +1,6 @@
 name: Rails CI
 
-# トリガーをmainに設定
+# mainにpushされるときをトリガーとする
 on:
   push:
     branches: [ main ]
@@ -10,10 +10,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     services:
       postgres:
-        image: postgres:14.1
+        image: postgres:16.2
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
@@ -27,36 +27,35 @@ jobs:
           --health-retries 5
 
     steps:
-      # 1. リポジトリのコードをチェックアウトする
+      # 1. リポジトリのコードをチェックアウト
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Rubyのバージョンを設定する
-      - name: Set up Ruby
+      - name: Set up Ruby and install dependencies
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true # Gemのインストールをキャッシュして高速化
+          working-directory: ./reflecty-api
 
-      # 3. データベースを作成・マイグレーションする
+      # 3. データベースを作成・マイグレーション
       - name: Setup database
         env:
           RAILS_ENV: test
-          DATABASE_HOST: localhost # servicesで定義したpostgresを指す
+          DATABASE_HOST: localhost
           DATABASE_USERNAME: postgres
           DATABASE_PASSWORD: password
+        working-directory: ./reflecty-api
         run: |
-          cd reflecty-api
           bundle exec rails db:create
           bundle exec rails db:migrate
 
-      # 4. RSpecテストを実行する
+      # 4. RSpecテストを実行
       - name: Run RSpec tests
         env:
           RAILS_ENV: test
           DATABASE_HOST: localhost
           DATABASE_USERNAME: postgres
           DATABASE_PASSWORD: password
-        run: |
-          cd reflecty-api
-          bundle exec rspec
+        working-directory: ./reflecty-api
+        run: bundle exec rspec
